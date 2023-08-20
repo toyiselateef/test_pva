@@ -18,34 +18,34 @@ using Microsoft.Extensions.Options;
 
         public async Task<bool> SendAsync(SMSRequest SMSRequest)
         {
-            SMS smsDetails = mapper.Map<SMS>(SMSRequest);
+            //SMS smsDetails = mapper.Map<SMS>(SMSRequest);
             
-            smsDetails.appId = "ussd";
-            smsDetails.appReference = "xyz-123";
+            //smsDetails.appId = "ussd";
+            //smsDetails.appReference = "xyz-123";
 
-            var sub_key = !string.IsNullOrEmpty(SMSresource.SubscriptionKey) ? SMSresource.SubscriptionKey : Environment.GetEnvironmentVariable("SandBox_SubscriptionKey");
+            //var sub_key = !string.IsNullOrEmpty(SMSresource.SubscriptionKey) ? SMSresource.SubscriptionKey : Environment.GetEnvironmentVariable("SandBox_SubscriptionKey");
             var result = false;
-            var httpRequest = new HttpRequest<SMS>
-            {
-               BaseUrl = SMSresource.BaseUrl,
-               Resource = SMSresource.SendEndpoint,
-               Method = Tamada.Middleware.Domain.Entities.Enums.HttpMethod.Post,
-               Headers = new Dictionary<string, string>
-               {
-                   { "Subscription-Key", sub_key },
-                   { "Cache-Control", "no-cache" }
-               },
-               //mocked up data
-               RequestBody = smsDetails
-            };
+            //var httpRequest = new HttpRequest<SMS>
+            //{
+            //   BaseUrl = SMSresource.BaseUrl,
+            //   Resource = SMSresource.SendEndpoint,
+            //   Method = Tamada.Middleware.Domain.Entities.Enums.HttpMethod.Post,
+            //   Headers = new Dictionary<string, string>
+            //   {
+            //       { "Subscription-Key", sub_key },
+            //       { "Cache-Control", "no-cache" }
+            //   },
+            //   //mocked up data
+            //   RequestBody = smsDetails
+            //};
        
 
-            var response = await httpFacade.SendRequest<SMS,SMSAPIRes>(httpRequest);
+            //var response = await httpFacade.SendRequest<SMS,SMSAPIRes>(httpRequest);
 
-            if(response.IsSuccessful && response.Data?.status == "success") { 
+            //if(response.IsSuccessful && response.Data?.status == "success") { 
             
-              result = true;
-            }
+            //  result = true;
+            //}
 
             return result;
 

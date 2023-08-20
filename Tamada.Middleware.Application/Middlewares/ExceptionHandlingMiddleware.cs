@@ -1,6 +1,6 @@
-using System.Text.Json; 
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 public sealed class ExceptionHandlingMiddleware  : IMiddleware
     {
@@ -18,8 +18,8 @@ public sealed class ExceptionHandlingMiddleware  : IMiddleware
             }
             catch (Exception e)
             {
-                logger.LogError(JsonSerializer.Serialize(e));
-                await HandleExceptionAsync(context, e);
+             logger.LogError(JsonConvert.SerializeObject(e));
+            await HandleExceptionAsync(context, e);
             }
         }
 
@@ -56,8 +56,8 @@ public sealed class ExceptionHandlingMiddleware  : IMiddleware
                 };
             }
 
-            await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
-        }
+            await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(response));
+    }
 
      
 
