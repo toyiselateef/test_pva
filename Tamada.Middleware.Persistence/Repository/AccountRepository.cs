@@ -45,7 +45,7 @@ public class AccountRepository : IAccountRepository
     {
             _generator.accountValidation = new List<QueryAccountValidation>();
     }
-    return Task.FromResult(_generator.accountValidation.Select(x=> $"{x.cust_ac_no} ==> isValiid: {x.ac_stat_dormant  == "N" && x.ac_stat_no_dr == "N"}"));
+    return Task.FromResult(_generator.accountValidation.Select(x=> $"{x.cust_ac_no} ==> isValiid: {!(x.ac_stat_no_dr == "Y" || x.ac_stat_dormant == "Y" || x.ac_stat_frozen == "Y" || x.ac_stat_block == "Y")}"));
 
     }
 
