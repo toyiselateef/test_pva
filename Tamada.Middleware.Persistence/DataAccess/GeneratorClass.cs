@@ -16,7 +16,7 @@
 
         for (int i = 4; i <= 30; i++)
         {
-            var accno = $"0934848555{i:00}";
+            var accno = $"09348485{i:00}";
             var frozen = i % 2 == 0 ? "Y" : "N";
             var dormant = i % 3 == 0 ? "Y" : "N";
             var dr = i % 4 == 0 ? "Y" : "N";
