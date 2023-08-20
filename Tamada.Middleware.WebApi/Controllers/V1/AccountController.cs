@@ -26,13 +26,11 @@ public class AccountController : BaseController
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid request", typeof(ErrorResponse))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "UnAuthorized request", typeof(ErrorResponse))]
     #endregion
-    public async Task<ActionResult> AllAccounts([FromBody] AccountNumberRequest req)
+    public async Task<ActionResult> AllAccounts()
     {
         var response = await accountService.Accounts();
 
-        logger.LogInformation($"Validate account for {req.accNo?.Substring(0, 6)} with response : {JsonSerializer.Serialize(response)}");
-
-        return Ok(new ApiResponse<IEnumerable<string>>
+          return Ok(new ApiResponse<IEnumerable<string>>
         {
             Success = true,
             Message = "Request successful.",
