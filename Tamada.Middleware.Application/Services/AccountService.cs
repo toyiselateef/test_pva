@@ -72,6 +72,18 @@ public class AccountService : IAccountService
 
         return  mapper.Map<AccountValidation>(valid_acct_result); 
     }
+    public async Task<IEnumerable<string>> Accounts()
+    {
+       
+        var valid_acct_result = await accountRepository.FetchAccounts();
+
+        if (valid_acct_result== null)
+        {
+            throw new BadRequestException("no accounts found");
+        }
+
+        return  valid_acct_result; 
+    }
 
     public async Task<bool> BlockAccount(AccountBlockRequest request)
     {

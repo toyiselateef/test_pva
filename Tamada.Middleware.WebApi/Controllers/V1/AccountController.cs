@@ -18,7 +18,29 @@ public class AccountController : BaseController
     }
 
 
-    [HttpPost("Validate")]
+    [HttpGet("AllAccounts")]
+    #region <swagger description>
+    [SwaggerOperation(Summary = "AllAccounts", Description = "get all accounts.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Request successful", typeof(ApiResponse<AccountValidation>))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "server error", typeof(ErrorResponse))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid request", typeof(ErrorResponse))]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "UnAuthorized request", typeof(ErrorResponse))]
+    #endregion
+    public async Task<ActionResult> AllAccounts([FromBody] AccountNumberRequest req)
+    {
+        var response = await accountService.Accounts();
+
+        logger.LogInformation($"Validate account for {req.accNo?.Substring(0, 6)} with response : {JsonSerializer.Serialize(response)}");
+
+        return Ok(new ApiResponse<IEnumerable<string>>
+        {
+            Success = true,
+            Message = "Request successful.",
+            Data = response,
+            StatusCode = StatusCodes.Status200OK
+        });
+    }
+     [HttpPost("Validate")]
     #region <swagger description>
     [SwaggerOperation(Summary = "Validate Account", Description = "Validate an account is an access account and its valid.")]
     [SwaggerResponse(StatusCodes.Status200OK, "Request successful", typeof(ApiResponse<AccountValidation>))]

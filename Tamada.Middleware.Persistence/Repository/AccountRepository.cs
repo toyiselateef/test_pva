@@ -4,89 +4,49 @@ using Dapper;
 
 public class AccountRepository : IAccountRepository
 {
+    private readonly GeneratorClass _generator;
 
-    private IEnumerable<QueryAccountValidation> accountValidation;
-    private IEnumerable<QueryAccountStatus> accountStatus;
-    private IEnumerable<AccountEnquiry> accountEnquiry;
-    public AccountRepository()
+    public AccountRepository( GeneratorClass generator)
     {
-        GenerateRandoms();
+        
+        _generator = generator;
     }
 
     public Task<QueryAccountValidation> FetchValidAccount(string accountNumber)
     {
-        if (accountValidation == null)
+        if (_generator.accountValidation == null)
         {
-            accountValidation = new List<QueryAccountValidation>();
+            _generator.accountValidation = new List<QueryAccountValidation>();
         }
-        return Task.FromResult(accountValidation.FirstOrDefault(u => u.cust_ac_no == accountNumber)); 
+        return Task.FromResult(_generator.accountValidation.FirstOrDefault(u => u.cust_ac_no == accountNumber)); 
     }
      
 
     public Task<QueryAccountStatus> FetchAccountStatus(string accountNumber)
     {
-        if (accountStatus == null)
+        if (_generator.accountStatus == null)
         {
-            accountStatus = new List<QueryAccountStatus>();
+            _generator.accountStatus = new List<QueryAccountStatus>();
         }
-        return Task.FromResult(accountStatus.FirstOrDefault(u => u.cust_ac_no == accountNumber));
+        return Task.FromResult(_generator.accountStatus.FirstOrDefault(u => u.cust_ac_no == accountNumber));
     }
 
     public  Task<AccountEnquiry> FetchAccountDetails(string accountNumber)
     {
-    if (accountEnquiry == null)
+    if (_generator.accountEnquiry == null)
     {
-            accountEnquiry = new List<AccountEnquiry>();
+            _generator.accountEnquiry = new List<AccountEnquiry>();
     }
-    return Task.FromResult(accountEnquiry.FirstOrDefault(u => u.AccNo == accountNumber));
+    return Task.FromResult(_generator.accountEnquiry.FirstOrDefault(u => u.AccNo == accountNumber));
     }
-
-
-    public void GenerateRandoms()
+    public  Task<IEnumerable <string>> FetchAccounts()
     {
-        List<QueryAccountValidation> records = new List<QueryAccountValidation>();
-        List<QueryAccountStatus> recordstatus = new List<QueryAccountStatus>();
-        List<AccountEnquiry> recordenquiry = new List<AccountEnquiry>();
-
-        for (int i = 4; i <= 30; i++)
-        {
-        var accno =  $"0934848555{i:00}";
-        var frozen = i % 2 == 0 ? "Y" : "N";
-        var dormant = i % 3 == 0 ? "Y" : "N";
-        var dr = i % 4 == 0 ? "Y" : "N";
-        var block = i % 5 == 0 ? "Y" : "N";
-
-        records.Add(new QueryAccountValidation
-            {
-                cust_ac_no =  accno,
-                ac_stat_frozen = frozen,
-                ac_stat_dormant = dormant,
-                ac_stat_no_dr = dr,
-                ac_stat_block = block
-            });
-        recordstatus.Add(new QueryAccountStatus
-        {
-            cust_ac_no = accno,
-                ac_stat_no_dr = dr,
-                description = $"Description {i}",
-                record_stat = i % 3 == 0,
-                ac_stat_block = block,
-                ac_stat_dormant = dormant,
-                ac_stat_frozen = frozen,
-                ACC_STATUS = $"Status {i}"
-        });
-
-        recordenquiry.Add(new AccountEnquiry()
-        { 
-            e_mail = $"{accno}@gmail.com",
-            mobile_number = accno,
-        });
+    if (_generator.accountValidation == null)
+    {
+            _generator.accountValidation = new List<QueryAccountValidation>();
+    }
+    return Task.FromResult(_generator.accountValidation.Select(x=>x.cust_ac_no));
     }
 
-
-         accountValidation = records;
-        accountStatus = recordstatus; ;
-        accountEnquiry = recordenquiry;
-    }
 
 }

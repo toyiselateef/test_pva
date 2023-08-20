@@ -8,14 +8,15 @@ public static class ServiceRegistration{
 
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IAppRepository, AppRepository>();
-            //services.AddSingleton<IDBConnectionFactory, DBConnectionFactory>(provider => 
-            //        new DBConnectionFactory(Environment.GetEnvironmentVariable("SqlServerConnection"),
-            //                                Environment.GetEnvironmentVariable("OracleServerConnection")));
+        //services.AddSingleton<IDBConnectionFactory, DBConnectionFactory>(provider => 
+        //        new DBConnectionFactory(Environment.GetEnvironmentVariable("SqlServerConnection"),
+        //                                Environment.GetEnvironmentVariable("OracleServerConnection")));
 
-            //services.AddSingleton<IDBConnectionFactory, DBConnectionFactory>(provider => 
-            //        new DBConnectionFactory(Configuration.GetConnectionString("SqlServerConnection"),
-            //                                Configuration.GetConnectionString("OracleServerConnection")));
-          
-    
- }
+        //services.AddSingleton<IDBConnectionFactory, DBConnectionFactory>(provider => 
+        //        new DBConnectionFactory(Configuration.GetConnectionString("SqlServerConnection"),
+        //                                Configuration.GetConnectionString("OracleServerConnection")));
+        services.AddSingleton<GeneratorClass>();
+
+
+    }
 }

@@ -19,5 +19,6 @@ public static class ServiceRegistration
         services.AddScoped<IEmailService,EmailService>();
         services.AddScoped<IHttpFacade,HttpFacade>();
         services.AddSingleton<ExceptionHandlingMiddleware>();
+      
     }
 }
