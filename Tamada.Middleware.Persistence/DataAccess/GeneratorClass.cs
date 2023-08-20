@@ -1,10 +1,14 @@
 ﻿ 
-    public sealed class GeneratorClass
+    public class GeneratorClass
     {
+    public GeneratorClass()
+    {
+        GenerateRandoms();
+    }
     public IEnumerable<QueryAccountValidation> accountValidation;
     public IEnumerable<QueryAccountStatus> accountStatus;
     public IEnumerable<AccountEnquiry> accountEnquiry;
-    public void GenerateRandoms()
+    private void GenerateRandoms()
     {
         List<QueryAccountValidation> records = new List<QueryAccountValidation>();
         List<QueryAccountStatus> recordstatus = new List<QueryAccountStatus>();
