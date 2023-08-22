@@ -60,6 +60,30 @@ public class AccountController : BaseController
             StatusCode = StatusCodes.Status200OK
         });
     }
+    
+    
+    [HttpPost("ValidateWOTP")]
+    #region <swagger description>
+    [SwaggerOperation(Summary = "Validate Account With OTP", Description = "Validates an account is an access account and its valid then send otp to linked phone number.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Request successful", typeof(ApiResponse<AccountValidation>))]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "server error", typeof(ErrorResponse))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid request", typeof(ErrorResponse))]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "UnAuthorized request", typeof(ErrorResponse))]
+    #endregion
+    public async Task<ActionResult> ValidateWOTP([FromBody] AccountNumberRequest req)
+    {
+        AccountValidationWithOTP response = await accountService.Account_Validation_OTPGeneration(req.accNo);
+
+        logger.LogInformation($"Validate account with OTP for {req.accNo?.Substring(0, 6)} with response : {JsonSerializer.Serialize(response)}");
+
+        return Ok(new ApiResponse<AccountValidationWithOTP>
+        {
+            Success = true,
+            Message = "Request successful.",
+            Data = response,
+            StatusCode = StatusCodes.Status200OK
+        });
+    }
 
     [HttpPost("Status")]
     #region <swagger description>

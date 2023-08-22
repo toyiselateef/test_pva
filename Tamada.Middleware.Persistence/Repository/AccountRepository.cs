@@ -1,6 +1,4 @@
 using System.Data;
-using System.Text.Json.Serialization;
-using Dapper;
 
 public class AccountRepository : IAccountRepository
 {
@@ -19,6 +17,14 @@ public class AccountRepository : IAccountRepository
             _generator.accountValidation = new List<QueryAccountValidation>();
         }
         return Task.FromResult(_generator.accountValidation.FirstOrDefault(u => u.cust_ac_no == accountNumber)); 
+    }
+    public Task<QueryAccountValidationWithOTP> FetchValidAccountWithOTP(string accountNumber)
+    {
+        if (_generator.accountValidationWOTP == null)
+        {
+            _generator.accountValidationWOTP = new List<QueryAccountValidationWithOTP>();
+        }
+        return Task.FromResult(_generator.accountValidationWOTP.FirstOrDefault(u => u.cust_ac_no == accountNumber)); 
     }
      
 
@@ -48,6 +54,8 @@ public class AccountRepository : IAccountRepository
     return Task.FromResult(_generator.accountValidation.Select(x=> $"{x.cust_ac_no} ==> isValiid: {!(x.ac_stat_no_dr == "Y" || x.ac_stat_dormant == "Y" || x.ac_stat_frozen == "Y" || x.ac_stat_block == "Y")}"));
 
     }
+
+
 
 
 }

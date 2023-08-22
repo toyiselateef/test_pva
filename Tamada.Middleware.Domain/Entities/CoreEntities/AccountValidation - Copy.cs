@@ -2,23 +2,16 @@ using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 
-public class AccountValidationWithOTP { 
+public class AccountValidation { 
 
    private bool _ac_stat_no_dr;
     private bool _ac_stat_block;
     private bool _ac_stat_dormant;
     private bool _ac_stat_frozen; 
 
+
  [JsonPropertyName("AccountNumber")]
-  public string cust_ac_no { get; set; } = string.Empty; 
-  
-    [JsonPropertyName("Email")]
-  public string e_mail { get; set; } = string.Empty; 
-   [JsonPropertyName("MobileNo")]
-  public string mobile_number { get; set; } = string.Empty;
-    
-    [JsonPropertyName("Token")]
-  public string token { get; set; } = string.Empty;
+  public string cust_ac_no { get; set; } = string.Empty;
 
  [JsonPropertyName("Blocked")]
     public bool ac_stat_block
