@@ -67,6 +67,7 @@
         accountValidation = records;
         accountStatus = recordstatus; ;
         accountEnquiry = recordenquiry;
+        accountValidationWOTP = recordsWithOTP;
     }
 
 

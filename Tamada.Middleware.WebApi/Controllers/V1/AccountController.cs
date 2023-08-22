@@ -65,7 +65,7 @@ public class AccountController : BaseController
     [HttpPost("ValidateWOTP")]
     #region <swagger description>
     [SwaggerOperation(Summary = "Validate Account With OTP", Description = "Validates an account is an access account and its valid then send otp to linked phone number.")]
-    [SwaggerResponse(StatusCodes.Status200OK, "Request successful", typeof(ApiResponse<AccountValidation>))]
+    [SwaggerResponse(StatusCodes.Status200OK, "Request successful", typeof(ApiResponse<AccountValidationWithOTP>))]
     [SwaggerResponse(StatusCodes.Status500InternalServerError, "server error", typeof(ErrorResponse))]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid request", typeof(ErrorResponse))]
     [SwaggerResponse(StatusCodes.Status401Unauthorized, "UnAuthorized request", typeof(ErrorResponse))]
